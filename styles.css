@@ -1,0 +1,1177 @@
+/* =====================================================
+   NETFLIX BIRTHDAY SPECIAL
+   LUXURY EDITION
+===================================================== */
+
+:root{
+
+    --netflix:#E50914;
+    --netflix-light:#ff3b46;
+    --gold:#FFD700;
+
+    --bg:#000;
+    --card:#111111;
+
+    --text:#ffffff;
+    --text-light:#d4d4d4;
+
+}
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+
+    background:#000;
+    color:white;
+
+    font-family:'Poppins',sans-serif;
+
+    overflow-x:hidden;
+
+}
+
+/* =====================================================
+   SCROLLBAR
+===================================================== */
+
+::-webkit-scrollbar{
+    width:8px;
+}
+
+::-webkit-scrollbar-track{
+    background:#050505;
+}
+
+::-webkit-scrollbar-thumb{
+    background:var(--netflix);
+    border-radius:20px;
+}
+
+/* =====================================================
+   GLOBAL
+===================================================== */
+
+section{
+    position:relative;
+}
+
+img{
+    width:100%;
+    display:block;
+}
+
+.section-title{
+
+    text-align:center;
+
+    font-size:3rem;
+    font-weight:700;
+
+    margin-bottom:60px;
+
+    font-family:'Cinzel',serif;
+
+}
+
+.section-title::after{
+
+    content:'';
+
+    display:block;
+
+    width:100px;
+    height:4px;
+
+    background:var(--netflix);
+
+    margin:15px auto;
+
+    border-radius:30px;
+
+}
+
+/* =====================================================
+   LOADER
+===================================================== */
+
+#loader{
+
+    position:fixed;
+
+    top:0;
+    left:0;
+
+    width:100%;
+    height:100vh;
+
+    background:#000;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    z-index:999999;
+
+}
+
+.loader-content{
+
+    text-align:center;
+
+}
+
+.netflix-loader{
+
+    font-size:7rem;
+
+    color:var(--netflix);
+
+    font-weight:900;
+
+    letter-spacing:8px;
+
+    text-shadow:
+    0 0 20px rgba(229,9,20,.7),
+    0 0 40px rgba(229,9,20,.7);
+
+}
+
+.loader-content p{
+
+    margin-top:15px;
+
+    letter-spacing:5px;
+
+}
+
+/* =====================================================
+   NAVBAR
+===================================================== */
+
+.navbar{
+
+    position:fixed;
+
+    top:0;
+    left:0;
+
+    width:100%;
+
+    z-index:9999;
+
+    padding:25px 7%;
+
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+
+    background:
+    linear-gradient(
+        to bottom,
+        rgba(0,0,0,.95),
+        rgba(0,0,0,.4),
+        transparent
+    );
+
+}
+
+.logo{
+
+    font-size:2rem;
+
+    font-weight:800;
+
+    color:var(--netflix);
+
+    letter-spacing:4px;
+
+}
+
+/* =====================================================
+   HERO
+===================================================== */
+
+#hero{
+
+    height:100vh;
+    overflow:hidden;
+
+}
+
+.hero-bg{
+
+    position:absolute;
+
+    top:0;
+    left:0;
+
+    width:100%;
+    height:100%;
+
+    object-fit:cover;
+
+    object-position:center center;
+
+    animation:heroZoom 18s ease-in-out infinite;
+
+}
+
+.hero-overlay{
+
+    position:absolute;
+
+    inset:0;
+
+    background:
+    linear-gradient(
+        to top,
+        rgba(0,0,0,.95),
+        rgba(0,0,0,.45)
+    );
+
+    z-index:1;
+
+}
+
+.hero-content{
+
+    position:relative;
+
+    z-index:2;
+
+    height:100%;
+
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+
+    padding-left:7%;
+    padding-right:7%;
+
+    max-width:700px;
+
+}
+
+.hero-tag{
+
+    width:max-content;
+
+    padding:8px 18px;
+
+    border-radius:30px;
+
+    background:var(--netflix);
+
+    font-size:.8rem;
+
+    margin-bottom:25px;
+
+}
+
+.hero-content h1{
+
+    font-size:4rem;
+
+    line-height:.95;
+
+    font-family:'Cinzel',serif;
+
+    margin-bottom:25px;
+
+}
+
+.hero-meta{
+
+    display:flex;
+    flex-wrap:wrap;
+
+    gap:10px;
+
+    margin-bottom:25px;
+
+}
+
+.hero-meta span{
+
+    padding:8px 16px;
+
+    border-radius:30px;
+
+    background:
+    rgba(255,255,255,.12);
+
+    backdrop-filter:blur(12px);
+
+    font-size:.85rem;
+
+}
+
+.hero-content p{
+
+    max-width:600px;
+
+    color:#ddd;
+
+    line-height:1.8;
+
+    font-size:1.05rem;
+
+}
+
+.hero-buttons{
+
+    display:flex;
+
+    gap:15px;
+
+    margin-top:35px;
+
+}
+
+.play-btn{
+
+    border:none;
+
+    background:white;
+
+    color:black;
+
+    padding:15px 30px;
+
+    border-radius:8px;
+
+    cursor:pointer;
+
+    font-weight:700;
+
+}
+
+.info-btn{
+
+    border:none;
+
+    background:
+    rgba(255,255,255,.15);
+
+    color:white;
+
+    backdrop-filter:blur(12px);
+
+    padding:15px 30px;
+
+    border-radius:8px;
+
+    cursor:pointer;
+
+}
+
+@keyframes heroZoom{
+
+    0%{
+        transform:scale(1);
+    }
+
+    50%{
+        transform:scale(1.08);
+    }
+
+    100%{
+        transform:scale(1);
+    }
+
+}
+
+/* =====================================================
+   CAST
+===================================================== */
+
+#cast{
+
+    padding:120px 7%;
+
+}
+
+.cast-grid{
+
+    display:grid;
+
+    grid-template-columns:
+    repeat(4,1fr);
+
+    gap:25px;
+
+}
+
+.cast-card{
+
+    background:#111;
+
+    border-radius:20px;
+
+    overflow:hidden;
+
+    transition:.4s;
+
+}
+
+.cast-card:hover{
+
+    transform:
+    translateY(-10px);
+
+}
+
+.cast-card img{
+
+    height:340px;
+
+    object-fit:cover;
+
+}
+
+.cast-card h3{
+
+    text-align:center;
+
+    padding:18px;
+
+}
+
+/* =====================================================
+   MEMORIES
+===================================================== */
+
+#memories{
+
+    padding:100px 0 100px 7%;
+
+}
+
+.memoriesSwiper{
+
+    padding-right:40px;
+
+}
+
+.memory-card{
+
+    position:relative;
+
+    overflow:hidden;
+
+    border-radius:20px;
+
+}
+
+.memory-card img{
+
+    height:450px;
+
+    object-fit:cover;
+
+}
+
+.memory-info{
+
+    position:absolute;
+
+    bottom:0;
+
+    width:100%;
+
+    padding:20px;
+
+    background:
+    linear-gradient(
+        transparent,
+        rgba(0,0,0,.95)
+    );
+
+}
+
+.memory-info h3{
+
+    font-size:1.1rem;
+
+}
+/* =====================================================
+   WEDDING SECTION
+===================================================== */
+
+#wedding{
+
+    height:85vh;
+
+    overflow:hidden;
+
+}
+
+.wedding-bg{
+
+    position:absolute;
+
+    width:100%;
+    height:100%;
+
+    object-fit:cover;
+
+}
+
+.wedding-overlay{
+
+    position:absolute;
+
+    inset:0;
+
+    background:
+    linear-gradient(
+        rgba(0,0,0,.75),
+        rgba(0,0,0,.9)
+    );
+
+    z-index:1;
+
+}
+
+.wedding-content{
+
+    position:relative;
+
+    z-index:2;
+
+    height:100%;
+
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+
+    text-align:center;
+
+    padding:20px;
+
+}
+
+.wedding-content span{
+
+    background:#E50914;
+
+    padding:10px 20px;
+
+    border-radius:30px;
+
+    margin-bottom:25px;
+
+}
+
+.wedding-content h2{
+
+    font-size:4rem;
+
+    font-family:'Cinzel',serif;
+
+    margin-bottom:15px;
+
+}
+
+.wedding-content h3{
+
+    font-size:1.5rem;
+
+    color:#FFD700;
+
+    margin-bottom:20px;
+
+}
+
+.wedding-content p{
+
+    font-size:1.1rem;
+
+    color:#ddd;
+
+}
+
+/* =====================================================
+   STATS SECTION
+===================================================== */
+
+#stats{
+
+    padding:120px 7%;
+
+}
+
+.stats-grid{
+
+    display:grid;
+
+    grid-template-columns:
+    repeat(4,1fr);
+
+    gap:25px;
+
+}
+
+.stat-box{
+
+    background:
+    rgba(255,255,255,.05);
+
+    backdrop-filter:blur(20px);
+
+    border:1px solid rgba(255,255,255,.08);
+
+    border-radius:25px;
+
+    padding:40px;
+
+    text-align:center;
+
+    transition:.4s;
+
+}
+
+.stat-box:hover{
+
+    transform:translateY(-10px);
+
+    border-color:#E50914;
+
+}
+
+.stat-box h3{
+
+    font-size:3rem;
+
+    color:#E50914;
+
+    margin-bottom:10px;
+
+}
+
+.stat-box span{
+
+    color:#ddd;
+
+}
+
+/* =====================================================
+   GALLERY
+===================================================== */
+
+#gallery{
+
+    padding:120px 7%;
+
+}
+
+.gallery-grid{
+
+    columns:4;
+
+    column-gap:20px;
+
+    max-height:80vh;
+    overflow-y:auto;
+
+
+}
+
+.gallery-grid img{
+
+    width:100%;
+
+    margin-bottom:20px;
+
+    border-radius:18px;
+
+    break-inside:avoid;
+
+    cursor:pointer;
+
+    transition:.4s;
+
+}
+
+.gallery-grid img:hover{
+
+    transform:scale(1.03);
+
+    box-shadow:
+    0 15px 40px rgba(229,9,20,.3);
+
+}
+
+/* =====================================================
+   LETTER
+===================================================== */
+
+#letter{
+
+    padding:120px 7%;
+
+}
+
+.letter-container{
+
+    max-width:900px;
+
+    margin:auto;
+
+    background:
+    rgba(255,255,255,.05);
+
+    backdrop-filter:blur(20px);
+
+    border:
+    1px solid rgba(255,255,255,.08);
+
+    border-radius:30px;
+
+    padding:50px;
+
+}
+
+#typing-text{
+
+    line-height:2;
+
+    font-size:1.1rem;
+
+    color:#f1f1f1;
+
+    white-space:pre-line;
+
+}
+
+/* =====================================================
+   BIRTHDAY REVEAL
+===================================================== */
+
+#birthday-reveal{
+
+    height:80vh;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    text-align:center;
+
+    padding:20px;
+
+    background:
+    radial-gradient(
+        circle,
+        rgba(229,9,20,.15),
+        transparent
+    );
+
+}
+
+.birthday-content span{
+
+    display:inline-block;
+
+    padding:10px 20px;
+
+    border-radius:30px;
+
+    background:#E50914;
+
+    margin-bottom:25px;
+
+}
+
+.birthday-content h1{
+
+    font-size:6rem;
+
+    font-family:'Cinzel',serif;
+
+    margin-bottom:15px;
+
+}
+
+.birthday-content h2{
+
+    font-size:2rem;
+
+    color:#FFD700;
+
+}
+
+/* =====================================================
+   ENDING SECTION
+===================================================== */
+
+#ending{
+
+    height:100vh;
+
+    overflow:hidden;
+
+}
+
+.ending-bg{
+
+    position:absolute;
+
+    width:100%;
+    height:100%;
+
+    object-fit:cover;
+
+}
+
+.ending-overlay{
+
+    position:absolute;
+
+    inset:0;
+
+    background:
+    linear-gradient(
+        rgba(0,0,0,.75),
+        rgba(0,0,0,.95)
+    );
+
+    z-index:1;
+
+}
+
+.ending-content{
+
+    position:relative;
+
+    z-index:2;
+
+    height:100%;
+
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+
+    text-align:center;
+
+    padding:20px;
+
+}
+
+.ending-content h3{
+
+    color:#ccc;
+
+    margin-bottom:10px;
+
+}
+
+.ending-content h1{
+
+    font-size:5rem;
+
+    font-family:'Cinzel',serif;
+
+    margin:20px 0;
+
+}
+
+.ending-content h2{
+
+    font-size:2rem;
+
+    color:#E50914;
+
+}
+
+/* =====================================================
+   MUSIC BUTTON
+===================================================== */
+
+#musicBtn{
+
+    position:fixed;
+
+    right:25px;
+    bottom:25px;
+
+    width:65px;
+    height:65px;
+
+    border:none;
+
+    border-radius:50%;
+
+    background:#E50914;
+
+    color:white;
+
+    font-size:1.5rem;
+
+    cursor:pointer;
+
+    z-index:99999;
+
+    box-shadow:
+    0 0 30px rgba(229,9,20,.5);
+
+}
+
+/* =====================================================
+   FLOATING ANIMATION
+===================================================== */
+
+@keyframes floatCard{
+
+    0%{
+        transform:translateY(0);
+    }
+
+    50%{
+        transform:translateY(-8px);
+    }
+
+    100%{
+        transform:translateY(0);
+    }
+
+}
+
+.cast-card{
+
+    animation:
+    floatCard 5s ease-in-out infinite;
+
+}
+
+.cast-card:nth-child(2){
+
+    animation-delay:.5s;
+
+}
+
+.cast-card:nth-child(3){
+
+    animation-delay:1s;
+
+}
+
+.cast-card:nth-child(4){
+
+    animation-delay:1.5s;
+
+}
+
+/* =====================================================
+   MOBILE RESPONSIVE
+===================================================== */
+
+@media(max-width:768px){
+
+    .logo{
+
+        font-size:1.6rem;
+
+    }
+
+    .section-title{
+
+        font-size:2rem;
+
+        margin-bottom:40px;
+
+    }
+
+    /* HERO */
+
+    .hero-content{
+
+        padding-left:25px;
+        padding-right:25px;
+
+        text-align:left;
+
+    }
+
+    .hero-content h1{
+
+        font-size:2.8rem;
+
+        line-height:1.05;
+
+    }
+
+    .hero-content p{
+
+        font-size:.95rem;
+
+    }
+
+    .hero-buttons{
+
+        flex-direction:column;
+
+    }
+
+    .play-btn,
+    .info-btn{
+
+        width:100%;
+
+    }
+
+    /* CAST */
+
+    .cast-grid{
+
+        grid-template-columns:
+        1fr 1fr;
+
+    }
+
+    .cast-card img{
+
+        height:220px;
+
+    }
+
+    /* MEMORIES */
+
+    .memory-card img{
+
+        height:320px;
+
+    }
+
+    /* WEDDING */
+
+    .wedding-content h2{
+
+        font-size:2.3rem;
+
+    }
+
+    .wedding-content h3{
+
+        font-size:1.1rem;
+
+    }
+
+    /* STATS */
+
+    .stats-grid{
+
+        grid-template-columns:
+        1fr 1fr;
+
+    }
+
+    .stat-box{
+
+        padding:25px;
+
+    }
+
+    .stat-box h3{
+
+        font-size:2rem;
+
+    }
+
+    /* GALLERY */
+
+    .gallery-grid{
+
+        columns:2;
+
+    }
+
+    /* LETTER */
+
+    .letter-container{
+
+        padding:30px;
+
+    }
+
+    #typing-text{
+
+        font-size:1rem;
+
+        line-height:1.8;
+
+    }
+
+    /* BIRTHDAY */
+
+    .birthday-content h1{
+
+        font-size:3rem;
+
+    }
+
+    .birthday-content h2{
+
+        font-size:1.2rem;
+
+    }
+
+    /* ENDING */
+
+    .ending-content h1{
+
+        font-size:2.8rem;
+
+    }
+
+    .ending-content h2{
+
+        font-size:1.3rem;
+
+    }
+
+}
+
+/* =====================================================
+   EXTRA SMALL PHONES
+===================================================== */
+
+@media(max-width:480px){
+
+    .hero-content h1{
+
+        font-size:2.3rem;
+
+    }
+
+    .gallery-grid{
+
+        columns:1;
+
+    }
+
+    .stats-grid{
+
+        grid-template-columns:
+        1fr;
+
+    }
+
+}
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    overflow-x:hidden;
+}
