@@ -1,5 +1,5 @@
 /* =====================================================
-   NETFLIX BIRTHDAY SPECIAL
+   OUR WEDDING PREMIERE
 ===================================================== */
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -9,10 +9,10 @@ document.addEventListener("DOMContentLoaded", () => {
     initSwiper();
     initTypeWriter();
     initGallery();
-    initMusic();
     initScrollReveal();
     initFloatingHearts();
     initNavbarGlow();
+    initHeroButtons();
 
 });
 
@@ -22,20 +22,16 @@ document.addEventListener("DOMContentLoaded", () => {
 
 function initLoader(){
 
-    const loader =
-    document.getElementById("loader");
+    const loader = document.getElementById("loader");
+    if(!loader) return;
 
     setTimeout(()=>{
 
-        loader.style.transition =
-        "all 1s ease";
-
+        loader.style.transition = "all 1s ease";
         loader.style.opacity = "0";
 
         setTimeout(()=>{
-
             loader.style.display = "none";
-
         },1000);
 
     },3000);
@@ -43,53 +39,25 @@ function initLoader(){
 }
 
 /* =====================================================
-   MARRIAGE COUNTER
+   WEDDING COUNTDOWN
 ===================================================== */
 
 function initMarriageCounter(){
 
-    const weddingDate =
-    new Date("2025-02-05T00:00:00");
+    const weddingDate = new Date("2026-11-28T00:00:00");
+    const daysBox = document.getElementById("daysUntil");
+    const hoursBox = document.getElementById("hoursUntil");
 
-    function updateCounter(){
-
-        const now = new Date();
-
-        const diff =
-        now - weddingDate;
-
-        const days =
-        Math.floor(
-        diff / (1000*60*60*24)
-        );
-
-        const hours =
-        Math.floor(
-        diff / (1000*60*60)
-        );
-
-        const daysBox =
-        document.getElementById(
-        "daysTogether"
-        );
-
-        const hoursBox =
-        document.getElementById(
-        "hoursTogether"
-        );
-
-        if(daysBox)
-        daysBox.innerText = days;
-
-        if(hoursBox)
-        hoursBox.innerText = hours;
-
+    function updateCountdown(){
+        const remaining = Math.max(0, weddingDate.getTime() - Date.now());
+        const days = Math.floor(remaining / 86400000);
+        const hours = Math.floor((remaining % 86400000) / 3600000);
+        if(daysBox) daysBox.textContent = String(days).padStart(2, "0");
+        if(hoursBox) hoursBox.textContent = String(hours).padStart(2, "0");
     }
 
-    updateCounter();
-
-    setInterval(updateCounter,1000);
-
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
 }
 
 /* =====================================================
@@ -98,15 +66,12 @@ function initMarriageCounter(){
 
 function initSwiper(){
 
-    if(typeof Swiper === "undefined")
-    return;
+    if(typeof Swiper === "undefined") return;
 
     new Swiper(".memoriesSwiper",{
 
         slidesPerView:1.2,
-
         spaceBetween:20,
-
         loop:true,
 
         autoplay:{
@@ -115,15 +80,8 @@ function initSwiper(){
         },
 
         breakpoints:{
-
-            768:{
-                slidesPerView:2.2
-            },
-
-            1024:{
-                slidesPerView:3.2
-            }
-
+            768:{ slidesPerView:2.2 },
+            1024:{ slidesPerView:3.2 }
         }
 
     });
@@ -136,41 +94,10 @@ function initSwiper(){
 
 function initTypeWriter(){
 
-    const element =
-    document.getElementById(
-    "typing-text"
-    );
-
+    const element = document.getElementById("typing-text");
     if(!element) return;
 
-    const text =
-
-`Happy Birthday ❤️
-
-Today is not just another day.
-
-Today is the celebration of the most wonderful husband,
-the most caring partner,
-and the most beautiful soul.
-
-Since 05 February 2025,
-every moment has become a memory worth keeping forever.
-
-Thank you for every smile,
-every laugh,
-every hug,
-and every dream we continue to build together.
-
-May your 25th birthday bring happiness,
-success,
-good health,
-and countless blessings.
-
-You are my favorite chapter,
-my safest place,
-and my forever.
-
-Happy Birthday My Love ❤️`;
+    const text = `To our favourite people,\n\nOur story has always been made brighter by the people we love. Now we are getting ready for the day we begin our next chapter as a married couple.\n\nPlease save the date: 28 November 2026.\n\nWe cannot wait to celebrate, laugh, dance, and make a lifetime of new memories with you.\n\nWith all our love,\nThe almost newlyweds ❤️`;
 
     let index = 0;
 
@@ -178,28 +105,21 @@ Happy Birthday My Love ❤️`;
 
         if(index < text.length){
 
-            element.innerHTML +=
-            text.charAt(index);
-
+            element.textContent += text.charAt(index);
             index++;
-
             setTimeout(type,30);
 
         }
 
     }
 
-    const observer =
-    new IntersectionObserver(entries=>{
+    const observer = new IntersectionObserver(entries=>{
 
         entries.forEach(entry=>{
 
             if(entry.isIntersecting){
-
                 type();
-
                 observer.disconnect();
-
             }
 
         });
@@ -216,43 +136,30 @@ Happy Birthday My Love ❤️`;
 
 function initGallery(){
 
-    const gallery =
-    document.querySelector(
-    ".gallery-grid"
-    );
-
+    const gallery = document.querySelector(".gallery-grid");
     if(!gallery) return;
 
-    /*
-    ADD ALL YOUR IMAGE NAMES HERE
-    */
-
     const images = [
-
-        "IMG_1525.JPG.jpeg",
-        "IMG_0471.JPG.jpeg",
-        "IMG_6731.JPG.jpeg",
-        "IMG_6650.JPG.jpeg",
-        "IMG_6617.JPG.jpeg",
-        "IMG_4749.JPG.jpeg",
-        "IMG_6675.JPG.jpeg",
-        "IMG_6715.JPG.jpeg",
-        "IMG_0689.JPG.jpeg",
-        "IMG_3615.JPG.jpeg",
-
-        /* continue remaining photos */
-
+        "0I9A0503.jpg",
+        "0I9A0552.jpg",
+        "0I9A0566.jpg",
+        "0I9A0593.jpg",
+        "0I9A0611.jpg",
+        "0I9A0667.jpg",
+        "0I9A0706.jpg",
+        "0I9A0774.jpg",
+        "0I9A0794.jpg",
+        "0I9A0928.jpg"
     ];
 
     images.forEach(file=>{
 
-        const img =
-        document.createElement("img");
+        const img = document.createElement("img");
 
-        img.src =
-        `images/${file}`;
-
+        img.src = `images/${file}`;
         img.loading = "lazy";
+        img.alt = "A memory from our story";
+        img.decoding = "async";
 
         gallery.appendChild(img);
 
@@ -261,47 +168,29 @@ function initGallery(){
 }
 
 /* =====================================================
-   MUSIC
+   MUSIC (only runs if #bgMusic and #musicBtn exist)
 ===================================================== */
 
 function initMusic(){
 
-    const music =
-    document.getElementById(
-    "bgMusic"
-    );
+    const music = document.getElementById("bgMusic");
+    const button = document.getElementById("musicBtn");
 
-    const button =
-    document.getElementById(
-    "musicBtn"
-    );
-
-    if(!music || !button)
-    return;
+    if(!music || !button) return;
 
     let playing = false;
 
     button.addEventListener("click",()=>{
 
         if(!playing){
-
             music.play();
-
-            button.innerHTML =
-            "🔊";
-
+            button.innerHTML = "🔊";
             playing = true;
-
         }
         else{
-
             music.pause();
-
-            button.innerHTML =
-            "🎵";
-
+            button.innerHTML = "🎵";
             playing = false;
-
         }
 
     });
@@ -314,49 +203,34 @@ function initMusic(){
 
 function initScrollReveal(){
 
-    const elements =
-    document.querySelectorAll(
-
-    ".cast-card, .memory-card, .stat-box, .letter-container"
-
+    const elements = document.querySelectorAll(
+        ".cast-card, .memory-card, .stat-box, .letter-container"
     );
 
-    const observer =
-    new IntersectionObserver(
+    const observer = new IntersectionObserver(
 
-    entries=>{
+        entries=>{
 
-        entries.forEach(entry=>{
+            entries.forEach(entry=>{
 
-            if(entry.isIntersecting){
+                if(entry.isIntersecting){
+                    entry.target.style.opacity = "1";
+                    entry.target.style.transform = "translateY(0)";
+                }
 
-                entry.target.style.opacity =
-                "1";
+            });
 
-                entry.target.style.transform =
-                "translateY(0)";
+        },
 
-            }
-
-        });
-
-    },
-
-    {
-        threshold:0.2
-    }
+        { threshold:0.2 }
 
     );
 
     elements.forEach(el=>{
 
         el.style.opacity = "0";
-
-        el.style.transform =
-        "translateY(50px)";
-
-        el.style.transition =
-        "all 1s ease";
+        el.style.transform = "translateY(50px)";
+        el.style.transition = "all 1s ease";
 
         observer.observe(el);
 
@@ -365,58 +239,34 @@ function initScrollReveal(){
 }
 
 /* =====================================================
-   FLOATING HEARTS
+   FLOATING HEARTS (now behind the hero text and buttons)
 ===================================================== */
 
 function initFloatingHearts(){
 
     setInterval(()=>{
 
-        const heart =
-        document.createElement("div");
+        const heart = document.createElement("div");
 
         heart.innerHTML = "❤️";
 
-        heart.style.position =
-        "fixed";
+        heart.style.position = "fixed";
+        heart.style.left = Math.random()*100 + "vw";
+        heart.style.bottom = "-30px";
+        heart.style.zIndex = "1";
+        heart.style.pointerEvents = "none";
+        heart.style.fontSize = (Math.random()*20+15) + "px";
+        heart.style.transition = "8s linear";
 
-        heart.style.left =
-        Math.random()*100 + "vw";
-
-        heart.style.bottom =
-        "-30px";
-
-        heart.style.zIndex =
-        "999";
-
-        heart.style.pointerEvents =
-        "none";
-
-        heart.style.fontSize =
-        (Math.random()*20+15)
-        + "px";
-
-        heart.style.transition =
-        "8s linear";
-
-        document.body.appendChild(
-        heart
-        );
+        document.body.appendChild(heart);
 
         setTimeout(()=>{
-
-            heart.style.transform =
-            "translateY(-120vh)";
-
-            heart.style.opacity =
-            "0";
-
+            heart.style.transform = "translateY(-120vh)";
+            heart.style.opacity = "0";
         },100);
 
         setTimeout(()=>{
-
             heart.remove();
-
         },8000);
 
     },1500);
@@ -424,35 +274,27 @@ function initFloatingHearts(){
 }
 
 /* =====================================================
-   HERO BUTTON
+   HERO BUTTONS
 ===================================================== */
 
-const playButton =
-document.querySelector(
-".play-btn"
-);
+function initHeroButtons(){
 
-if(playButton){
+    const playButton = document.querySelector(".play-btn");
+    const infoButton = document.querySelector(".info-btn");
+    const memories = document.getElementById("memories");
+    const wedding = document.getElementById("wedding");
 
-    playButton.addEventListener(
-    "click",
-
-    ()=>{
-
-        document
-        .getElementById(
-        "memories"
-        )
-
-        .scrollIntoView({
-
-            behavior:"smooth"
-
+    if(playButton && memories){
+        playButton.addEventListener("click", () => {
+            memories.scrollIntoView({behavior:"smooth"});
         });
-
     }
 
-    );
+    if(infoButton && wedding){
+        infoButton.addEventListener("click", () => {
+            wedding.scrollIntoView({behavior:"smooth"});
+        });
+    }
 
 }
 
@@ -464,50 +306,15 @@ function initNavbarGlow(){
 
     setInterval(()=>{
 
-        const logo =
-        document.querySelector(
-        ".logo"
-        );
-
+        const logo = document.querySelector(".logo");
         if(!logo) return;
 
-        logo.style.textShadow =
-        "0 0 25px #E50914";
+        logo.style.textShadow = "0 0 25px #E50914";
 
         setTimeout(()=>{
-
-            logo.style.textShadow =
-            "none";
-
+            logo.style.textShadow = "none";
         },1000);
 
     },3000);
 
 }
-
-/* =====================================================
-   PARALLAX HERO
-===================================================== */
-
-window.addEventListener(
-
-"scroll",
-
-()=>{
-
-    const hero =
-    document.querySelector(
-    ".hero-bg"
-    );
-
-    if(!hero) return;
-
-    const offset =
-    window.pageYOffset;
-
-    hero.style.transform =
-    `translateY(${offset*0.15}px) scale(1.05)`;
-
-}
-
-);

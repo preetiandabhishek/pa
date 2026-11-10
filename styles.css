@@ -1,20 +1,24 @@
 /* =====================================================
-   NETFLIX BIRTHDAY SPECIAL
-   LUXURY EDITION
+   NETFLIX WEDDING PREMIERE
 ===================================================== */
 
 :root{
-
     --netflix:#E50914;
     --netflix-light:#ff3b46;
     --gold:#FFD700;
-
     --bg:#000;
     --card:#111111;
-
     --text:#ffffff;
     --text-light:#d4d4d4;
 
+    /* TUNE THESE TO FRAME THE HERO PHOTO
+       format: horizontal% vertical%  (0% = left/top, 100% = right/bottom) */
+    --hero-pos-desktop:center 25%;
+    --hero-pos-mobile:center 20%;
+
+    /* HOW MUCH THE TITLE CARD OVERLAPS THE PHOTO */
+    --hero-overlap-desktop:120px;
+    --hero-overlap-mobile:100px;
 }
 
 *{
@@ -23,33 +27,21 @@
     box-sizing:border-box;
 }
 
-html{
-    scroll-behavior:smooth;
-}
+html{ scroll-behavior:smooth; }
 
 body{
-
     background:#000;
     color:white;
-
     font-family:'Poppins',sans-serif;
-
     overflow-x:hidden;
-
 }
 
 /* =====================================================
    SCROLLBAR
 ===================================================== */
 
-::-webkit-scrollbar{
-    width:8px;
-}
-
-::-webkit-scrollbar-track{
-    background:#050505;
-}
-
+::-webkit-scrollbar{ width:8px; }
+::-webkit-scrollbar-track{ background:#050505; }
 ::-webkit-scrollbar-thumb{
     background:var(--netflix);
     border-radius:20px;
@@ -59,9 +51,7 @@ body{
    GLOBAL
 ===================================================== */
 
-section{
-    position:relative;
-}
+section{ position:relative; }
 
 img{
     width:100%;
@@ -69,33 +59,21 @@ img{
 }
 
 .section-title{
-
     text-align:center;
-
     font-size:3rem;
     font-weight:700;
-
     margin-bottom:60px;
-
     font-family:'Cinzel',serif;
-
 }
 
 .section-title::after{
-
     content:'';
-
     display:block;
-
     width:100px;
     height:4px;
-
     background:var(--netflix);
-
     margin:15px auto;
-
     border-radius:30px;
-
 }
 
 /* =====================================================
@@ -103,53 +81,33 @@ img{
 ===================================================== */
 
 #loader{
-
     position:fixed;
-
     top:0;
     left:0;
-
     width:100%;
     height:100vh;
-
     background:#000;
-
     display:flex;
     justify-content:center;
     align-items:center;
-
     z-index:999999;
-
 }
 
-.loader-content{
-
-    text-align:center;
-
-}
+.loader-content{ text-align:center; }
 
 .netflix-loader{
-
     font-size:7rem;
-
     color:var(--netflix);
-
     font-weight:900;
-
     letter-spacing:8px;
-
     text-shadow:
-    0 0 20px rgba(229,9,20,.7),
-    0 0 40px rgba(229,9,20,.7);
-
+        0 0 20px rgba(229,9,20,.7),
+        0 0 40px rgba(229,9,20,.7);
 }
 
 .loader-content p{
-
     margin-top:15px;
-
     letter-spacing:5px;
-
 }
 
 /* =====================================================
@@ -157,657 +115,490 @@ img{
 ===================================================== */
 
 .navbar{
-
     position:fixed;
-
     top:0;
     left:0;
-
     width:100%;
-
     z-index:9999;
-
-    padding:25px 7%;
-
+    padding:22px 7%;
     display:flex;
     justify-content:space-between;
     align-items:center;
-
-    background:
-    linear-gradient(
+    gap:20px;
+    background:linear-gradient(
         to bottom,
-        rgba(0,0,0,.95),
-        rgba(0,0,0,.4),
+        rgba(0,0,0,.7),
+        rgba(0,0,0,.25),
         transparent
     );
-
 }
 
 .logo{
-
-    font-size:2rem;
-
     font-weight:800;
-
     color:var(--netflix);
-
     letter-spacing:4px;
-
 }
 
+.logo-full{ font-size:2rem; }
+.logo-n{ display:none; font-size:2.4rem; letter-spacing:0; line-height:1; }
+
+.nav-links{
+    list-style:none;
+    display:flex;
+    gap:26px;
+}
+
+.nav-links a{
+    color:#e5e5e5;
+    text-decoration:none;
+    font-size:.95rem;
+    font-weight:500;
+    text-shadow:0 1px 6px rgba(0,0,0,.7);
+    transition:color .3s;
+}
+
+.nav-links a:hover{ color:#fff; }
+
 /* =====================================================
-   HERO
+   HERO  (Netflix reel-style layout)
+   Photo on top (fully visible, fades to black)
+   -> title card overlaps the faded bottom edge
+   -> tags -> buttons -> "Now Streaming" row
 ===================================================== */
 
 #hero{
-
-    height:100vh;
+    display:block;
+    background:#000;
     overflow:hidden;
-
+    padding-bottom:50px;
 }
 
+/* The photo is a normal block, NOT behind the text */
 .hero-bg{
+    position:relative;
+    display:block;
+    width:100%;
+    height:72svh;
+    min-height:420px;
+    max-height:760px;
+    object-fit:cover;
+    object-position:var(--hero-pos-desktop);
+    z-index:0;
+    -webkit-mask-image:linear-gradient(to bottom,#000 60%,transparent 100%);
+            mask-image:linear-gradient(to bottom,#000 60%,transparent 100%);
+}
 
+/* Small shade at the top so the nav stays readable */
+.hero-overlay{
     position:absolute;
-
     top:0;
     left:0;
-
     width:100%;
-    height:100%;
-
-    object-fit:cover;
-
-    object-position:center center;
-
-    animation:heroZoom 18s ease-in-out infinite;
-
-}
-
-.hero-overlay{
-
-    position:absolute;
-
-    inset:0;
-
-    background:
-    linear-gradient(
-        to top,
-        rgba(0,0,0,.95),
-        rgba(0,0,0,.45)
-    );
-
+    height:140px;
     z-index:1;
-
+    pointer-events:none;
+    background:linear-gradient(to bottom, rgba(0,0,0,.6) 0%, rgba(0,0,0,0) 100%);
 }
 
 .hero-content{
-
     position:relative;
-
     z-index:2;
-
-    height:100%;
-
+    width:100%;
+    max-width:1100px;
+    margin:calc(var(--hero-overlap-desktop) * -1) auto 0;
+    padding:0 20px;
     display:flex;
     flex-direction:column;
-    justify-content:center;
-
-    padding-left:7%;
-    padding-right:7%;
-
-    max-width:700px;
-
+    align-items:center;
+    text-align:center;
 }
 
-.hero-tag{
+/* ---------- TITLE CARD ---------- */
 
-    width:max-content;
-
-    padding:8px 18px;
-
+.title-card{
+    position:relative;
+    padding:22px 46px 20px;
+    border:2px solid rgba(255,255,255,.92);
     border-radius:30px;
-
-    background:var(--netflix);
-
-    font-size:.8rem;
-
-    margin-bottom:25px;
-
+    background:rgba(0,0,0,.35);
+    backdrop-filter:blur(6px);
+    -webkit-backdrop-filter:blur(6px);
+    box-shadow:
+        inset 0 0 0 6px rgba(0,0,0,.3),
+        inset 0 0 0 7px rgba(255,255,255,.45),
+        0 10px 40px rgba(0,0,0,.5);
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:6px;
 }
 
-.hero-content h1{
+.tc-small{
+    font-size:.7rem;
+    letter-spacing:.35em;
+    color:#ffe3a2;
+    font-weight:600;
+}
 
-    font-size:4rem;
-
-    line-height:.95;
-
+.title-card h1{
     font-family:'Cinzel',serif;
-
-    margin-bottom:25px;
-
+    font-size:clamp(2rem,9vw,3.6rem);
+    font-weight:700;
+    line-height:1.05;
+    text-shadow:0 2px 14px rgba(0,0,0,.6);
 }
 
-.hero-meta{
+.tc-date{
+    font-family:'Cinzel',serif;
+    letter-spacing:.3em;
+    color:var(--gold);
+    font-size:.95rem;
+}
 
+/* ---------- TAGS ---------- */
+
+.hero-tags{
     display:flex;
     flex-wrap:wrap;
-
-    gap:10px;
-
-    margin-bottom:25px;
-
-}
-
-.hero-meta span{
-
-    padding:8px 16px;
-
-    border-radius:30px;
-
-    background:
-    rgba(255,255,255,.12);
-
-    backdrop-filter:blur(12px);
-
+    justify-content:center;
+    gap:6px 0;
+    margin-top:22px;
     font-size:.85rem;
-
+    color:#e6e6e6;
 }
 
-.hero-content p{
-
-    max-width:600px;
-
-    color:#ddd;
-
-    line-height:1.8;
-
-    font-size:1.05rem;
-
+.hero-tags span + span::before{
+    content:'•';
+    margin:0 12px;
+    color:#9a9a9a;
 }
+
+/* ---------- BUTTONS ---------- */
 
 .hero-buttons{
-
     display:flex;
-
-    gap:15px;
-
-    margin-top:35px;
-
+    gap:12px;
+    margin-top:20px;
+    width:100%;
+    max-width:460px;
 }
 
 .play-btn{
-
+    flex:1;
     border:none;
-
     background:white;
-
     color:black;
-
-    padding:15px 30px;
-
+    padding:12px 12px;
     border-radius:8px;
-
     cursor:pointer;
-
     font-weight:700;
-
+    font-size:.9rem;
+    font-family:inherit;
 }
 
 .info-btn{
-
+    flex:1;
     border:none;
-
-    background:
-    rgba(255,255,255,.15);
-
+    background:rgba(255,255,255,.2);
     color:white;
-
     backdrop-filter:blur(12px);
-
-    padding:15px 30px;
-
+    -webkit-backdrop-filter:blur(12px);
+    padding:12px 12px;
     border-radius:8px;
-
     cursor:pointer;
-
+    font-weight:500;
+    font-size:.9rem;
+    font-family:inherit;
 }
 
-@keyframes heroZoom{
+/* ---------- NOW STREAMING ROW ---------- */
 
-    0%{
-        transform:scale(1);
-    }
-
-    50%{
-        transform:scale(1.08);
-    }
-
-    100%{
-        transform:scale(1);
-    }
-
+.hero-row-title{
+    align-self:flex-start;
+    margin-top:32px;
+    margin-bottom:14px;
+    font-size:1.5rem;
+    font-weight:700;
 }
+
+.hero-row{
+    width:100%;
+    display:flex;
+    gap:12px;
+    overflow-x:auto;
+    scroll-snap-type:x mandatory;
+    padding-bottom:6px;
+    scrollbar-width:none;
+    text-align:left;
+}
+
+.hero-row::-webkit-scrollbar{ display:none; }
+
+.row-card{
+    flex:0 0 190px;
+    aspect-ratio:2/3;
+    border-radius:16px;
+    overflow:hidden;
+    scroll-snap-align:start;
+    background:#111;
+}
+
+.row-card img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    object-position:center 25%;
+    transition:transform .5s;
+}
+
+.row-card:hover img{ transform:scale(1.06); }
 
 /* =====================================================
    CAST
 ===================================================== */
 
-#cast{
-
-    padding:120px 7%;
-
-}
+#cast{ padding:120px 7%; }
 
 .cast-grid{
-
     display:grid;
-
-    grid-template-columns:
-    repeat(4,1fr);
-
+    grid-template-columns:repeat(4,1fr);
     gap:25px;
-
 }
 
 .cast-card{
-
     background:#111;
-
     border-radius:20px;
-
     overflow:hidden;
-
     transition:.4s;
-
+    animation:floatCard 5s ease-in-out infinite;
 }
 
-.cast-card:hover{
+.cast-card:nth-child(2){ animation-delay:.5s; }
+.cast-card:nth-child(3){ animation-delay:1s; }
+.cast-card:nth-child(4){ animation-delay:1.5s; }
 
-    transform:
-    translateY(-10px);
-
-}
+.cast-card:hover{ transform:translateY(-10px); }
 
 .cast-card img{
-
     height:340px;
-
     object-fit:cover;
-
 }
 
 .cast-card h3{
-
     text-align:center;
-
     padding:18px;
-
 }
 
 /* =====================================================
    MEMORIES
 ===================================================== */
 
-#memories{
+#memories{ padding:100px 0 100px 7%; }
 
-    padding:100px 0 100px 7%;
-
-}
-
-.memoriesSwiper{
-
-    padding-right:40px;
-
-}
+.memoriesSwiper{ padding-right:40px; }
 
 .memory-card{
-
     position:relative;
-
     overflow:hidden;
-
     border-radius:20px;
-
 }
 
 .memory-card img{
-
     height:450px;
-
     object-fit:cover;
-
 }
 
 .memory-info{
-
     position:absolute;
-
     bottom:0;
-
     width:100%;
-
     padding:20px;
-
-    background:
-    linear-gradient(
-        transparent,
-        rgba(0,0,0,.95)
-    );
-
+    background:linear-gradient(transparent, rgba(0,0,0,.9));
 }
 
-.memory-info h3{
+.memory-info h3{ font-size:1.1rem; }
 
-    font-size:1.1rem;
-
-}
 /* =====================================================
    WEDDING SECTION
 ===================================================== */
 
 #wedding{
-
     height:85vh;
-
     overflow:hidden;
-
 }
 
 .wedding-bg{
-
     position:absolute;
-
     width:100%;
     height:100%;
-
     object-fit:cover;
-
 }
 
 .wedding-overlay{
-
     position:absolute;
-
     inset:0;
-
-    background:
-    linear-gradient(
-        rgba(0,0,0,.75),
-        rgba(0,0,0,.9)
-    );
-
+    background:linear-gradient(rgba(0,0,0,.55), rgba(0,0,0,.8));
     z-index:1;
-
 }
 
 .wedding-content{
-
     position:relative;
-
     z-index:2;
-
     height:100%;
-
     display:flex;
     flex-direction:column;
     justify-content:center;
     align-items:center;
-
     text-align:center;
-
     padding:20px;
-
 }
 
 .wedding-content span{
-
     background:#E50914;
-
     padding:10px 20px;
-
     border-radius:30px;
-
     margin-bottom:25px;
-
 }
 
 .wedding-content h2{
-
     font-size:4rem;
-
     font-family:'Cinzel',serif;
-
     margin-bottom:15px;
-
 }
 
 .wedding-content h3{
-
     font-size:1.5rem;
-
     color:#FFD700;
-
     margin-bottom:20px;
-
+    letter-spacing:.12em;
 }
 
 .wedding-content p{
-
     font-size:1.1rem;
-
     color:#ddd;
-
+    max-width:620px;
+    margin:18px auto 0;
+    line-height:1.8;
 }
 
 /* =====================================================
    STATS SECTION
 ===================================================== */
 
-#stats{
-
-    padding:120px 7%;
-
-}
+#stats{ padding:120px 7%; }
 
 .stats-grid{
-
     display:grid;
-
-    grid-template-columns:
-    repeat(4,1fr);
-
+    grid-template-columns:repeat(4,1fr);
     gap:25px;
-
 }
 
 .stat-box{
-
-    background:
-    rgba(255,255,255,.05);
-
+    background:rgba(255,255,255,.05);
     backdrop-filter:blur(20px);
-
     border:1px solid rgba(255,255,255,.08);
-
     border-radius:25px;
-
     padding:40px;
-
     text-align:center;
-
     transition:.4s;
-
 }
 
 .stat-box:hover{
-
     transform:translateY(-10px);
-
     border-color:#E50914;
-
 }
 
 .stat-box h3{
-
     font-size:3rem;
-
     color:#E50914;
-
     margin-bottom:10px;
-
 }
 
-.stat-box span{
-
-    color:#ddd;
-
-}
+.stat-box span{ color:#ddd; }
 
 /* =====================================================
    GALLERY
 ===================================================== */
 
-#gallery{
-
-    padding:120px 7%;
-
-}
+#gallery{ padding:120px 7%; }
 
 .gallery-grid{
-
-    columns:4;
-
-    column-gap:20px;
-
-    max-height:80vh;
-    overflow-y:auto;
-
-
+    display:grid;
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:20px;
 }
 
 .gallery-grid img{
-
     width:100%;
-
-    margin-bottom:20px;
-
+    aspect-ratio:4/5;
+    height:auto;
+    object-fit:cover;
     border-radius:18px;
-
-    break-inside:avoid;
-
     cursor:pointer;
-
     transition:.4s;
-
 }
 
 .gallery-grid img:hover{
-
     transform:scale(1.03);
-
-    box-shadow:
-    0 15px 40px rgba(229,9,20,.3);
-
+    box-shadow:0 15px 40px rgba(229,9,20,.3);
 }
 
 /* =====================================================
    LETTER
 ===================================================== */
 
-#letter{
-
-    padding:120px 7%;
-
-}
+#letter{ padding:120px 7%; }
 
 .letter-container{
-
     max-width:900px;
-
     margin:auto;
-
-    background:
-    rgba(255,255,255,.05);
-
+    background:rgba(255,255,255,.05);
     backdrop-filter:blur(20px);
-
-    border:
-    1px solid rgba(255,255,255,.08);
-
+    border:1px solid rgba(255,255,255,.08);
     border-radius:30px;
-
     padding:50px;
-
 }
 
 #typing-text{
-
     line-height:2;
-
     font-size:1.1rem;
-
     color:#f1f1f1;
-
     white-space:pre-line;
-
 }
 
 /* =====================================================
-   BIRTHDAY REVEAL
+   WEDDING REVEAL
 ===================================================== */
 
-#birthday-reveal{
-
+#wedding-reveal{
     height:80vh;
-
+    min-height:520px;
     display:flex;
     justify-content:center;
     align-items:center;
-
     text-align:center;
-
-    padding:20px;
-
-    background:
-    radial-gradient(
-        circle,
-        rgba(229,9,20,.15),
-        transparent
-    );
-
+    padding:24px;
+    background:radial-gradient(circle, rgba(229,9,20,.18), transparent 65%);
 }
 
-.birthday-content span{
-
+.wedding-reveal-content span{
     display:inline-block;
-
     padding:10px 20px;
-
     border-radius:30px;
-
-    background:#E50914;
-
+    background:var(--netflix);
     margin-bottom:25px;
-
+    letter-spacing:.1em;
 }
 
-.birthday-content h1{
-
-    font-size:6rem;
-
+.wedding-reveal-content h1{
+    font-size:clamp(2.5rem,8vw,6rem);
     font-family:'Cinzel',serif;
-
     margin-bottom:15px;
-
 }
 
-.birthday-content h2{
-
-    font-size:2rem;
-
-    color:#FFD700;
-
+.wedding-reveal-content h2{
+    font-size:clamp(1.2rem,3vw,2rem);
+    color:var(--gold);
 }
 
 /* =====================================================
@@ -815,83 +606,50 @@ img{
 ===================================================== */
 
 #ending{
-
     height:100vh;
-
     overflow:hidden;
-
 }
 
 .ending-bg{
-
     position:absolute;
-
     width:100%;
     height:100%;
-
     object-fit:cover;
-
 }
 
 .ending-overlay{
-
     position:absolute;
-
     inset:0;
-
-    background:
-    linear-gradient(
-        rgba(0,0,0,.75),
-        rgba(0,0,0,.95)
-    );
-
+    background:linear-gradient(rgba(0,0,0,.5), rgba(0,0,0,.85));
     z-index:1;
-
 }
 
 .ending-content{
-
     position:relative;
-
     z-index:2;
-
     height:100%;
-
     display:flex;
     flex-direction:column;
     justify-content:center;
     align-items:center;
-
     text-align:center;
-
     padding:20px;
-
 }
 
 .ending-content h3{
-
     color:#ccc;
-
     margin-bottom:10px;
-
 }
 
 .ending-content h1{
-
     font-size:5rem;
-
     font-family:'Cinzel',serif;
-
     margin:20px 0;
-
 }
 
 .ending-content h2{
-
     font-size:2rem;
-
     color:#E50914;
-
 }
 
 /* =====================================================
@@ -899,32 +657,19 @@ img{
 ===================================================== */
 
 #musicBtn{
-
     position:fixed;
-
     right:25px;
     bottom:25px;
-
     width:65px;
     height:65px;
-
     border:none;
-
     border-radius:50%;
-
     background:#E50914;
-
     color:white;
-
     font-size:1.5rem;
-
     cursor:pointer;
-
     z-index:99999;
-
-    box-shadow:
-    0 0 30px rgba(229,9,20,.5);
-
+    box-shadow:0 0 30px rgba(229,9,20,.5);
 }
 
 /* =====================================================
@@ -932,214 +677,109 @@ img{
 ===================================================== */
 
 @keyframes floatCard{
-
-    0%{
-        transform:translateY(0);
-    }
-
-    50%{
-        transform:translateY(-8px);
-    }
-
-    100%{
-        transform:translateY(0);
-    }
-
-}
-
-.cast-card{
-
-    animation:
-    floatCard 5s ease-in-out infinite;
-
-}
-
-.cast-card:nth-child(2){
-
-    animation-delay:.5s;
-
-}
-
-.cast-card:nth-child(3){
-
-    animation-delay:1s;
-
-}
-
-.cast-card:nth-child(4){
-
-    animation-delay:1.5s;
-
+    0%{ transform:translateY(0); }
+    50%{ transform:translateY(-8px); }
+    100%{ transform:translateY(0); }
 }
 
 /* =====================================================
-   MOBILE RESPONSIVE
+   DESKTOP HERO TWEAKS
+===================================================== */
+
+@media(min-width:769px){
+
+    .hero-bg{ height:78svh; }
+
+    .hero-row{ justify-content:flex-start; }
+}
+
+/* =====================================================
+   MOBILE
 ===================================================== */
 
 @media(max-width:768px){
 
-    .logo{
-
-        font-size:1.6rem;
-
-    }
-
-    .section-title{
-
-        font-size:2rem;
-
-        margin-bottom:40px;
-
-    }
+    /* NAVBAR: red N on the left, tabs on the right */
+    .navbar{ padding:16px 20px; }
+    .logo-full{ display:none; }
+    .logo-n{ display:block; }
+    .nav-links{ gap:18px; }
+    .nav-links a{ font-size:.85rem; }
 
     /* HERO */
+    #hero{ padding-bottom:40px; }
+
+    .hero-bg{
+        height:62svh;
+        min-height:380px;
+        max-height:none;
+        object-position:var(--hero-pos-mobile);
+    }
 
     .hero-content{
-
-        padding-left:25px;
-        padding-right:25px;
-
-        text-align:left;
-
+        margin-top:calc(var(--hero-overlap-mobile) * -1);
+        padding:0 18px;
     }
 
-    .hero-content h1{
+    .title-card{ padding:18px 34px 16px; }
 
-        font-size:2.8rem;
+    .hero-tags{ font-size:.8rem; margin-top:18px; }
 
-        line-height:1.05;
+    .hero-row-title{ font-size:1.3rem; margin-top:26px; }
 
-    }
+    /* about 3 cards visible, like the reference */
+    .row-card{ flex:0 0 31%; border-radius:14px; }
 
-    .hero-content p{
-
-        font-size:.95rem;
-
-    }
-
-    .hero-buttons{
-
-        flex-direction:column;
-
-    }
-
-    .play-btn,
-    .info-btn{
-
-        width:100%;
-
+    .section-title{
+        font-size:clamp(1.7rem,7vw,2.2rem);
+        margin-bottom:32px;
     }
 
     /* CAST */
-
-    .cast-grid{
-
-        grid-template-columns:
-        1fr 1fr;
-
-    }
-
-    .cast-card img{
-
-        height:220px;
-
-    }
+    #cast,#stats,#gallery,#letter{ padding:72px 20px; }
+    .cast-grid{ grid-template-columns:1fr 1fr; gap:14px; }
+    .cast-card img{ height:auto; aspect-ratio:3/4; object-fit:cover; }
+    .cast-card h3{ font-size:.9rem; padding:13px 7px; }
 
     /* MEMORIES */
-
-    .memory-card img{
-
-        height:320px;
-
-    }
+    #memories{ padding:72px 0 72px 20px; }
+    .memoriesSwiper{ padding-right:20px; }
+    .memory-card img{ height:auto; aspect-ratio:4/5; object-fit:cover; }
 
     /* WEDDING */
-
-    .wedding-content h2{
-
-        font-size:2.3rem;
-
-    }
-
-    .wedding-content h3{
-
-        font-size:1.1rem;
-
-    }
+    #wedding{ height:70svh; min-height:500px; }
+    .wedding-bg,.ending-bg{ object-position:center center; }
+    .wedding-content h2{ font-size:2.3rem; }
+    .wedding-content h3{ font-size:1.1rem; }
 
     /* STATS */
-
-    .stats-grid{
-
-        grid-template-columns:
-        1fr 1fr;
-
-    }
-
-    .stat-box{
-
-        padding:25px;
-
-    }
-
-    .stat-box h3{
-
-        font-size:2rem;
-
-    }
+    .stats-grid{ grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px; }
+    .stat-box{ padding:22px 10px; }
+    .stat-box h3{ font-size:2rem; }
 
     /* GALLERY */
-
     .gallery-grid{
-
-        columns:2;
-
+        grid-template-columns:repeat(2,minmax(0,1fr));
+        gap:10px;
     }
+    .gallery-grid img{ border-radius:10px; }
 
     /* LETTER */
+    .letter-container{ padding:26px 22px; }
+    #typing-text{ font-size:1rem; line-height:1.8; }
 
-    .letter-container{
-
-        padding:30px;
-
-    }
-
-    #typing-text{
-
-        font-size:1rem;
-
-        line-height:1.8;
-
-    }
-
-    /* BIRTHDAY */
-
-    .birthday-content h1{
-
-        font-size:3rem;
-
-    }
-
-    .birthday-content h2{
-
-        font-size:1.2rem;
-
-    }
+    /* WEDDING REVEAL */
+    #wedding-reveal{ height:65svh; min-height:440px; }
+    .wedding-reveal-content h1{ font-size:clamp(2rem,9vw,3rem); }
+    .wedding-reveal-content h2{ font-size:1.2rem; }
 
     /* ENDING */
+    #ending{ height:85svh; min-height:560px; }
+    .ending-content h1{ font-size:2.8rem; }
+    .ending-content h2{ font-size:1.3rem; }
 
-    .ending-content h1{
-
-        font-size:2.8rem;
-
-    }
-
-    .ending-content h2{
-
-        font-size:1.3rem;
-
-    }
-
+    /* MUSIC */
+    #musicBtn{ width:54px; height:54px; right:16px; bottom:16px; }
 }
 
 /* =====================================================
@@ -1147,31 +787,11 @@ img{
 ===================================================== */
 
 @media(max-width:480px){
-
-    .hero-content h1{
-
-        font-size:2.3rem;
-
-    }
-
-    .gallery-grid{
-
-        columns:1;
-
-    }
-
-    .stats-grid{
-
-        grid-template-columns:
-        1fr;
-
-    }
-
-}
-html{
-    scroll-behavior:smooth;
+    .stats-grid{ grid-template-columns:1fr; }
 }
 
-body{
-    overflow-x:hidden;
+@media(max-width:380px){
+    .cast-grid{ gap:10px; }
+    .nav-links{ gap:12px; }
+    .nav-links a{ font-size:.78rem; }
 }
